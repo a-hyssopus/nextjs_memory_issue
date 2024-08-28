@@ -1,5 +1,6 @@
-import "@/styles/globals.css";
+import React from "react";
+import PostButtonComponent from "../components/PostButtonComponent";
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return <PostButtonComponent {...pageProps} />;
 }
