@@ -1,40 +1,37 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
-
-First, run the development server:
+## Running app in Docker locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker build -t memory_repo .
+```
+and then
+
+```bash
+docker run -p 3000:3000 memory_repo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Issue reproduction
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) with your browser. Type `docker stats` in a new terminal tab.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Click the "Send POST request of normal size" button in application. Observe the behaviour of stats in the tab which tracks Docker, and pay attention to the memory consumption.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Then click "Send POST request of huge size" button, observe memory usage in Docker stats.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Issue
 
-## Learn More
+Memory is bloated from 50-70 up to 900+ MB. 
 
-To learn more about Next.js, take a look at the following resources:
+It happens even when `middleware.ts` file is present with no logic which would read `request.body` or do anything but log `xd` and return the `NextResponse.next()` inside.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## All tested scenarios and results
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Reproduction created with API route (with `getOnProxyInit`) and middleware: hits 940 MB with a 400 MB request sent, and although error was returned from server, precisely HTTP 413, the memory consumption doesn't decrease at all
+2. Removed `getOnProxyInit`: the same situation as above
+3. Removed `getOnProxyInit` file as well: hits 940 MB, but gets back to normal values fast
+4. Removed `middleware.ts`: memory consumption doesn't raise at all
+5. Commented out API route, but restored `middleware.ts`: doesn't raise at all
+6. Restored API route with `bodyParser: false`: the same as in 1 and 2
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
