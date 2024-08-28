@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-export default function PostButtonComponent() {
-    const handler = () => {
+export default function NormalRequestButton() {
+    const sendNormalRequest = () => {
         fetch('/api/testPost', {
             method: 'POST',
             body: JSON.stringify({
@@ -18,6 +18,6 @@ export default function PostButtonComponent() {
     }
 
     return (
-        <button onClick={handler}>Send POST request</button>
-    );
+        <button onClick={sendNormalRequest}>Send POST request of normal size</button>
+    )
 }
