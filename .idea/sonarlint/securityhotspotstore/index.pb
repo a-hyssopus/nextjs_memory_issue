@@ -36,3 +36,5 @@ V
 &src/components/PostButtonComponent.jsx,d/8/d81597875cf3990fa339803c98e02b44396b8979
 I
 src/pages/api/testPost.js,9/1/91bce513e5e4e31725b338a4e08f35fbbd482fdd
+V
+&src/components/NormalRequestButton.jsx,8/7/87cbb0ba37562041ea9a884b31d20396e3e8d427

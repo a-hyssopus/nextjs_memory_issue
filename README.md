@@ -27,6 +27,8 @@ It happens even when `middleware.ts` file is present with no logic which would r
 
 ## All tested scenarios and results
 
+You can navigate through commits 
+
 1. Reproduction created with API route (with `getOnProxyInit`) and middleware: hits 940 MB with a 400 MB request sent, and although error was returned from server, precisely HTTP 413, the memory consumption doesn't decrease at all
 2. Removed `getOnProxyInit`: the same situation as above
 3. Removed `middleware.ts`: memory consumption doesn't raise at all 
