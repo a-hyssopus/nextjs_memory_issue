@@ -1,9 +1,9 @@
 // pages/index.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export default function PostButtonComponent() {
     const handler = () => {
-        fetch('/api/testPost', {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify({
                 title: 'foo',
