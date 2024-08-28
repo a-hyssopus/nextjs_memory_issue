@@ -19,20 +19,6 @@ export default function PostButtonComponent() {
     }
 
     return (
-        <>
-        <div>
-            <h1>Pokemon Data</h1>
-            {pokemon ? (
-                <div>
-                    <p>Name: {pokemon.name}</p>
-                    <p>Height: {pokemon.height}</p>
-                    <p>Weight: {pokemon.weight}</p>
-                </div>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
         <button onClick={handler}>Send POST request</button>
-            </>
     );
 }
