@@ -14,7 +14,6 @@ export default function HugeRequestButton() {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.log(json));
     }
 
     return (

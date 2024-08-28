@@ -1,4 +1,4 @@
-export const generateHugePayload = (targetMB = 500) => {
+export const generateHugePayload = (targetMB = 400) => {
     // Approximate size of 1 MB in characters
     const MB_SIZE = 1024 * 1024;
 
