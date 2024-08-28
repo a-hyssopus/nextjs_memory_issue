@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function PostButtonComponent() {
     const handler = () => {
-        fetch('https://jsonplaceholder.typicode.com/posts', {
+        fetch('/api/testPost', {
             method: 'POST',
             body: JSON.stringify({
                 title: 'foo',
